@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    This is sign up page.
+    <form name="sign-up">
+        <label>Name<input type="text" name = "name" required placeholder="Full Name"></label> <br>
+        <label>Email<input type="email" name = "email" required placeholder="Enter your Email"></label>
+        <label>Password<input type="password" name="password" required placeholder="eg.acd@12"pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$"></label>
+        <label>Confirm Password <input type="password" name="confirmPassword" required></label><br>
+        <label>Gender</label>
+        <label><input type="radio" name="gender" value = "Male">Male</label>
+        <label><input type="radio" name="gender" value = "Female">Female</label>
+        <label><input type="radio" name="gender" value="Other">Other</label> <br>
+       <input type="button" value="Sign Up" id="signup-btn">
+    </form>
+</body>
+<script>
+    function validate(){
+        console.log("hello")
+        var signUp = document.forms['sign-up']
+        let name = signUp["name"].value;
+        let email= signUp["email"].value;
+        let password= signUp["password"].value
+        let confirmPassword = signUp["confirmPassword"].value
+        if(password.length<5) {
+            alert("Password length is invalid")
+            signUp['password'].focus();
+            return;
+        }
+        if(password!=confirmPassword){
+            alert("password not matching")
+            return
+        }
+        let gender = signUp["gender"].value
+        if(gender=="") {
+            alert("gender");
+            return
+        }
+    let newUser={
+        name:name,
+        email:email,
+        password:password,
+        gender:gender
+    }
+       
+    
+   fetch('http://127.0.0.1:3001/register',{
+        method:'POST',
+        headers:{
+                  'Content-Type':'application/json'
+        },
+        body:JSON.stringify(newUser)
+      }).then(response=>{
+        response.status===201?window.location.href="home": alert('not registered')
+      })
+
+   
+}
+    document.getElementById("signup-btn").addEventListener("click",()=>validate())
+</script>
+</html>

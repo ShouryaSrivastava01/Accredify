@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lavishly+Yours&family=Monoton&family=Press+Start+2P&display=swap" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+       <link rel="stylesheet" href="static/certificate.css">
+ 
+</head>
+<body>
+  <div id="outer">
+
+    <div id="invoice">
+      <div>
+  
+        <h1 id="title" class="center"></h1>
+        <span class="center">Presented to</span>
+        <h1 id="name" class="center"></h1>
+        <div>
+
+          <span class="center">For successful completion of <strong id="event"></strong> </span>
+        </div>
+        <div class="center" id="cred">
+          <div>
+
+            <svg style="color: green" xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-patch-check" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M10.354 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+              <path d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911l-1.318.016z"/>
+            </svg>
+            <h3 id="dateOfIssue">Issued On </h3>
+          </div>
+          <div>
+
+           <span class="center"><strong>Credential</strong> </span>
+           <br>
+            <a style="color: green" href="" id="credential"></a>
+          </div>
+      </div>
+      <span class="note center"><strong>*Note : </strong>This certificate is digitally produced for development and testing purposes only.</span>
+    </div>
+  </div>
+  <button id="download">Download</button>
+  </body>
+<script>
+  let params = new URLSearchParams(window.location.search);
+  document.getElementById("title").innerText=`CERTIFICATE OF ${params.get('type')}`
+  document.getElementById("name").innerText=params.get('name')
+  document.getElementById("event").innerText=params.get('event')
+  document.getElementById("dateOfIssue").innerText=`ISSUED ON ${params.get('dateOfIssue')}`
+  document.getElementById("credential").innerText=params.get('credential')
+  document.getElementById("credential").href=`http://127.0.0.1:3001/verify?id=${params.get('credential')}`
+
+  window.onload = function () {
+    document.getElementById("download")
+        .addEventListener("click", () => {
+            const invoice = this.document.getElementById("invoice");
+            console.log(invoice);
+            console.log(window);
+            var opt = {
+                margin: 1,
+                filename: 'myfile.pdf',
+                image: { type: 'jpeg', quality: 0.98},
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' }
+            };
+            html2pdf().from(invoice).set(opt).save();
+        })
+}
+   
+</script>
+
+
+
+</html>

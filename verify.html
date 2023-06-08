@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Verify</title>
+        <link rel="stylesheet" href="static/navbar.css">
+        <link rel="stylesheet" href="static/verify.css">
+        <script src="https://cdn.lordicon.com/xdjxvujz.js"></script>
+
+        
+ 
+</head>
+<body>
+  <div class="navbar">
+    <div class="navbar-menu">
+       <a href="addCertificate">
+       <lord-icon
+src="https://cdn.lordicon.com/wloilxuq.json"
+trigger="loop"
+delay="1000"
+colors="primary:#ffffff,secondary:#ffffff"
+state="hover-2"
+style="width:50px;height:50px">
+</lord-icon>
+      </a>
+
+        <span><a href="verify">VERIFY</a> </span>
+        <span><a href="http://www.ijirset.com/upload/2020/february/52_5_Digital.PDF" target="_blank">EXPLORE</a></span>
+    </div>
+</div>
+<div class="main">
+  <div class="outer">
+    <div class="left">
+      <label for="credential"> CREDENTIAL</label> 
+      <input type="text" required name="credential" id="credential" placeholder="Credential goes here">
+      <button class="btn" onclick="load()">Verify</button>
+    </div>
+
+    <div class="right">
+      <img src="static/search.svg" alt="" srcset="" height="220px">
+    </div>
+  </div>
+</div>
+ 
+</body>
+<script>
+  let params = new URLSearchParams(window.location.search);
+  if(params.get("id")===null) {
+    console.log("null")
+  }
+  else{
+    document.getElementById("credential").value=params.get("id")
+    verify()
+  }
+    function verify(){
+      console.log(params.get("id"))
+      var req ={
+          id:params.get("id")
+      }
+  
+      fetch('http://127.0.0.1:3001/verify',{
+          method:'POST',
+          headers:{
+                    'Content-Type':'application/json'
+          },
+          body:JSON.stringify(req)
+        }).then(response=>{
+          console.log(response)
+          if(response.status===200){
+              response.json().then(data => {
+            
+                  console.log(data)
+                 document.querySelector(".right").innerHTML = `<img src="static/verified.svg" alt="" srcset="" height="150px">
+                 <span>This certificate was awarded to <br><strong class="dark">${data.name}</strong><br>on date <strong class="dark">${data.dateOfIssue}</strong> <br> for <strong class="dark">${(data.type).toLowerCase()}</strong> of/in <br><strong class="dark">${data.event}</strong></span>`
+                })
+          }
+          else {
+            document.querySelector(".right").innerHTML = `<img src="static/notFound.svg" alt="" srcset="" height="110px">
+            <span>No Record Found !</span>`
+          }
+         
+        })
+    }
+   
+    function load(){
+      var searchParams = new URLSearchParams(window.location.search);
+    searchParams.set("id", document.getElementById("credential").value);
+    window.location.search = searchParams.toString();
+    }
+    
+
+</script>
+
+
+
+</html>

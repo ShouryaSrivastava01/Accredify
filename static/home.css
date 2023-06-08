@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
+
+body{
+    margin: 0;
+    padding: 0;
+}
+[hidden]{
+    display: none;
+}
+.main{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+}
+.left{
+    height: 100vh;
+    width: 35vw;
+    color: green;
+}
+.left div{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: normal; */
+    align-items: center;
+}
+.left img{
+    margin: 20px;
+}
+
+.btn{
+    height: 44px;
+    width: 200px;
+    border-radius: 5px;
+    border: 1px solid green;
+    color: green;
+    background: none;
+    box-shadow: 0px 0px 11px 1px #c9c9c9;
+    font-size: 20px;
+}
+
+.btn:hover{
+    cursor: pointer;
+    border: 2px solid #00800080;
+}
+.right{
+    height: 100vh;
+    width: 65vw;
+    background: linear-gradient(282deg, green, #000000d9);
+}
+#wallet-info{
+        /* background-color: red; */
+        width: 80%;
+        text-align: center;
+        word-wrap: break-word;
+        /* border: 1px solid green; */
+        margin: 10px;
+        padding: 10px;
+        box-shadow: 0 0 9px 0px #d1d1d1;;
+}
+
+.footer{
+    position: absolute;
+    bottom: 5px;
+    text-align: center;
+    margin: 0;
+    font-size: 19px;
+    display: block;
+    width: 60vw;
+    color : white;
+}
+.right div{
+    margin: 78px 68px;
+    color: white;
+    font-size: 40px;
+}
+.right span {
+    display: block;
+    font-family: 'Monoton', cursive;
+}
+.right a{
+    text-decoration: none;
+    color: white;
+    font-size: 25px;
+}

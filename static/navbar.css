@@ -1,0 +1,24 @@
+.navbar{
+    display: flex;
+    align-items: center;
+    height: 8vh;
+    background: linear-gradient(47deg, green, #000000d9)
+}
+a{
+    text-decoration: none;
+    color: white;
+}
+a:hover{
+   font-size: 21px;
+}
+.navbar-menu{
+    position: absolute;
+    right: 25px;
+    display: flex;
+    width: 25vw;
+    justify-content: space-evenly;
+    color: white;
+    font-size: 20px;
+    align-items: center;
+    font-weight: bold;
+}
